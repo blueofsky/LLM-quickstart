@@ -20,21 +20,24 @@ logout切换到新用户
 $ wget https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux.run
 $ sudo sh cuda_12.2.2_535.104.05_linux.run
 
-$ vi ~/.bashrc
-export PATH=$PATH:/usr/local/cuda/bin  
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64  
 
-# 查看GPU驱动版本
+```
+### 环境配置 ~/.bashrc
+```shell
+export PATH=$PATH:/usr/local/cuda/bin:~/miniconda3/bin
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+export HF_ENDPOINT=https://hf-mirror.com
+```
+### 重新登录，查看CUDA版本
+```shell
 $ nvidia-smi
-
-# 查看CUDA版本
 $ nvcc --version
 ```
 
 ### 安装ffmpeg
 
 ```shell
-#sudo apt update && sudo apt upgrade
+sudo apt update
 sudo apt install ffmpeg
 ffmpeg -version
 ```
@@ -70,6 +73,8 @@ show_channel_urls: True
 
 ### 创建虚拟环境
 ```shell
+$ conda init
+# 重新登录后操作
 $ conda create -n transformers python=3.11
 $ conda activate transformers
 ```
