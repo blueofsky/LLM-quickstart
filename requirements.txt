@@ -18,3 +18,5 @@ soundfile
 librosa
 gradio
 trl
+langchain
+langchain_openai
