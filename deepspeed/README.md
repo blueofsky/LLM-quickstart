@@ -2,7 +2,7 @@
 
 ## 更新 GCC 和 G++ 版本（如需）
 
-首先，添加必要的 PPA 仓库，然后更新 `gcc` 和 `g++`：
+首先，添加必要的 PPA 仓库，然后更新 `gcc` 和 `g++`（如果gcc版本过低，请先更新）：
 
 ```bash
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -23,6 +23,7 @@ sudo update-alternatives --config gcc
 
 ```bash
 conda create -n deepspeed --clone base
+pip install -r transformers/requirements.txt
 ```
 
 ## 安装 Transformers 和 DeepSpeed
@@ -38,12 +39,20 @@ pip install git+https://github.com/huggingface/transformers
 ### 源代码安装 DeepSpeed
 
 根据你的 GPU 实际情况设置参数 `TORCH_CUDA_ARCH_LIST`。如果你需要使用 CPU Offload 优化器参数，设置参数 `DS_BUILD_CPU_ADAM=1`；如果你需要使用 NVMe Offload，设置参数 `DS_BUILD_UTILS=1`：
-
+> 准备环境变量
 ```bash
+CUDA_VISIBLE_DEVICES=0 python -c "import torch; print(torch.cuda.get_device_capability())"
+python -c "import torch; print(torch.cuda.get_arch_list())"
+CUDA_VISIBLE_DEVICES=0 python -c "import torch; print(torch.cuda.get_device_properties(torch.device('cuda')))"
+```
+> 编译
+```bash
+apt update
+apt install rustc cargo
 git clone https://github.com/microsoft/DeepSpeed/
 cd DeepSpeed
 rm -rf build
-TORCH_CUDA_ARCH_LIST="7.5" DS_BUILD_CPU_ADAM=1 DS_BUILD_UTILS=1 pip install . \
+TORCH_CUDA_ARCH_LIST="8.9" DS_BUILD_CPU_ADAM=1 DS_BUILD_UTILS=1 pip install . \
 --global-option="build_ext" --global-option="-j8" --no-cache -v \
 --disable-pip-version-check 2>&1 | tee build.log
 ```
