@@ -25,6 +25,9 @@ CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python finetune.
 ```
 > 训练结果：
 
+<img src="./images/smi.jpg" width="600">
+
+<img src="./images/train.jpg" width="600">
 
 ## 4. 模型推理
 > 在完成微调任务之后，我们可以查看到 `output` 文件夹下多了很多个`checkpoint-*`的文件夹，这些文件夹代表了训练的轮数。<br>
@@ -35,3 +38,5 @@ CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python inference
 ```
 
 > 查看Gradio UI： http://127.0.0.1:6006/
+
+<img src="./images/inference.jpg" width="600">
