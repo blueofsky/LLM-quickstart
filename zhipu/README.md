@@ -21,7 +21,7 @@ python convert.py data/AdvertiseGen
 ```bash
 huggingface-cli  download THUDM/chatglm3-6b
 
-CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python finetune_hf.py  data/AdvertiseGen_fix  THUDM/chatglm3-6b  configs/lora.yaml
+CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python finetune.py  data/AdvertiseGen_fix  THUDM/chatglm3-6b  configs/lora.yaml
 ```
 > 训练结果：
 
@@ -31,7 +31,7 @@ CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python finetune_
 > 我们选择最后一轮的微调权重进行inference
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python inference.py  --model_dir output/checkpoint-4000/
+CUDA_VISIBLE_DEVICES=0 NCCL_P2P_DISABLE="1" NCCL_IB_DISABLE="1" python inference.py  --model_dir output/checkpoint-3000/
 ```
 
-> 查看Gradio UI： http://127.0.0.1:7860/
+> 查看Gradio UI： http://127.0.0.1:6006/
