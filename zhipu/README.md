@@ -1,6 +1,11 @@
 # ChatGLM-6B微调训练
 
-##  1. 下载数据集
+## 0. 安装依赖
+```bash
+pip install -r requirements.txt
+```
+
+## 1. 下载数据集
 ```bash
 curl -o ./data/AdvertiseGen.tar.gz https://cloud.tsinghua.edu.cn/f/b3f119a008264b1cabd1/?dl=1 && tar -xzf ./data/AdvertiseGen.tar.gz
 ```
