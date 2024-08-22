@@ -7,7 +7,9 @@ pip install -r requirements.txt
 
 ## 1. 下载数据集
 ```bash
-curl -o ./data/AdvertiseGen.tar.gz https://cloud.tsinghua.edu.cn/f/b3f119a008264b1cabd1/?dl=1 && tar -xzf ./data/AdvertiseGen.tar.gz
+mkdir -p ./data 
+wget  https://cloud.tsinghua.edu.cn/f/b3f119a008264b1cabd1/?dl=1 -O ./data/AdvertiseGen.tar.gz
+tar -xzf ./data/AdvertiseGen.tar.gz -C ./data
 ```
 
 ## 2. 处理数据集

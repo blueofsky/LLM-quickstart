@@ -29,7 +29,7 @@ def convert_adgen(data_dir: Annotated[str, typer.Argument(help='data store direc
                     fout.write(json.dumps(sample, ensure_ascii=False) + '\n')
 
     data_dir = _resolve_path(data_dir)
-    save_dir = _resolve_path(data_dir+"_fix")
+    save_dir = _resolve_path(str(data_dir)+"_fix")
 
     train_file = data_dir / 'train.json'
     if train_file.is_file():
