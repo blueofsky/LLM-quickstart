@@ -27,3 +27,5 @@ if __name__ == '__main__':
     text = "One of the best pizzas I've had in Charlotte. They also sell pizza by the slice which is a plus"
     predicted_label_idx=inference(text)
     print(f"Predicted label index: {predicted_label_idx}")
+    predicted_label_idx=pipeline(text)
+    print(f"Predicted label index: {predicted_label_idx}")
