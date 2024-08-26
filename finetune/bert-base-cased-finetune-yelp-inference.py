@@ -19,7 +19,7 @@ def inference(text):
     predicted_label_idx = torch.argmax(probabilities, dim=1).item()
     return predicted_label_idx
 
-def pipline(text):
+def pipd(text):
     pipe = pipeline(task="sentiment-analysis", tokenizer=origin_model, model=finetune_model)
     return pipe(text)
 
@@ -27,5 +27,5 @@ if __name__ == '__main__':
     text = "One of the best pizzas I've had in Charlotte. They also sell pizza by the slice which is a plus"
     predicted_label_idx=inference(text)
     print(f"Predicted label index: {predicted_label_idx}")
-    predicted_label_idx=pipeline(text)
+    predicted_label_idx=pipd(text)
     print(f"Predicted label index: {predicted_label_idx}")
