@@ -21,8 +21,8 @@ def tokenize_function(examples):
 # 使用分词函数处理数据集
 tokenized_datasets = dataset.map(tokenize_function, batched=True)
 # 从处理后的数据集中分离出训练集和测试集
-train_dataset = tokenized_datasets["train"]
-eval_dataset = tokenized_datasets["test"]
+train_dataset = tokenized_datasets["train"].shuffle(seed=64).select(range(10000))
+eval_dataset = tokenized_datasets["test"].shuffle(seed=64).select(range(1000))
 
 
 
@@ -62,8 +62,8 @@ trainer.train()
 
 # 模型评估
 
-# 从测试集中随机选择10000个样本进行评估
-test_dataset = tokenized_datasets["test"].shuffle(seed=64).select(range(10000))
+# 从测试集中随机选择1000个样本进行评估
+test_dataset = tokenized_datasets["test"].shuffle(seed=64).select(range(1000))
 # 评估模型性能
 trainer.evaluate(test_dataset)
 
