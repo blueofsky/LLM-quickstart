@@ -83,5 +83,13 @@ trainer.save_model(model_dir)
 作用: 保存整个训练状态,包括模型参数、优化器状态、训练轮次(epoch)、最佳评估指标等。
 用途：用于保存训练过程中的完整状态，这样你可以在之后从这个状态继续训练，而不必从头开始。这在训练中断或需要暂停训练时非常有用。
 输出：保存的是一个包含所有相关信息的字典，通常以 state_dict 的形式保存。
+例子：
+```python
+    model = AutoModelForCausalLM.from_pretrained('path_to_saved_model')
+    trainer = Trainer(model=model, args=training_args, ...)
+
+    # 如果有保存的状态，可以使用 resume_from_checkpoint 参数
+    trainer.train(resume_from_checkpoint='path_to_saved_state')
+```
 """
 trainer.save_state()
