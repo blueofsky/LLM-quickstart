@@ -1,3 +1,26 @@
+"""
+全量微调(full fine-tuning)
+
+以下是代码的关键点，解释为什么它是全量微调：
+
+1. **数据集加载与分词**：代码首先加载了一个数据集，并使用`AutoTokenizer`对数据集中的文本进行分词处理。
+
+2. **模型加载**：使用`AutoModelForSequenceClassification.from_pretrained`加载了一个预训练的BERT模型，
+    并指定了类别数（`num_labels=5`），这意味着模型的输出层（头）被调整为5个类别的分类任务。
+
+3. **训练参数设置**：通过`TrainingArguments`设置了训练的参数，包括批次大小、epoch数等。
+
+4. **Trainer初始化与训练**：初始化`Trainer`对象，并使用提供的训练和评估数据集、模型、训练参数和评估指标函数进行训练。
+
+5. **模型评估与保存**：在训练完成后，使用测试数据集评估模型的性能，并将模型保存到指定目录。
+
+全量微调的特点是使用整个预训练模型（包括所有层）进行训练，而不是仅仅训练模型的某些部分或最后的几层。
+在这个例子中，模型从头到尾都在训练，没有迹象表明只有模型的某些部分（如最后几层）被微调。
+此外，代码中没有使用任何特定的高效微调技术，如Adapters、Prompt Tuning或SFT。
+
+
+"""
+
 import numpy as np  # 用于数学运算
 import evaluate  # 用于评估模型性能
 from datasets import load_dataset  # 加载数据集
