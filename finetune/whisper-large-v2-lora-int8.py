@@ -113,7 +113,7 @@ peft_model = get_peft_model(model, config)
 # 打印 LoRA 微调训练的模型参数
 peft_model.print_trainable_parameters()
 
-
+## 执行训练
 # 设置序列到序列模型训练的参数
 training_args = Seq2SeqTrainingArguments(
     output_dir=model_dir,  # 指定模型输出和保存的目录
@@ -149,4 +149,3 @@ trainer.train()
 
 # 保存模型
 trainer.save_model(model_dir)
-peft_model.eval()
