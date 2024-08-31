@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoModelForCausalLM
+from transformers import AutoModel
 
 # 获取模型dtype
 def print_model_dtype(model):
@@ -22,7 +22,7 @@ def print_cuda_memory_gb():
 
 if __name__ == "__main__":
     model_name_or_path = 'THUDM/chatglm3-6b'   # 模型ID或本地路径
-    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="cuda").to(0)
+    model = AutoModel.from_pretrained(model_name_or_path,trust_remote_code=True, device_map="cuda").to(0)
     print_model_dtype(model)
     print_memory_gb(model)
     print_cuda_memory_gb()
