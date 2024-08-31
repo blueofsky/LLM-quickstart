@@ -16,18 +16,18 @@ def print_memory_gb(model):
 # 获取GPU显存占用
 def print_cuda_memory_gb(model,tokenizer):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    initial_memory_usage = torch.cuda.memory_allocated(device)
+    initial_memory_usage = torch.cuda.memory_allocated(device)/ (1024 ** 3)
     vocab_size = tokenizer.vocab_size
-    print(f"Initial memory usage: {initial_memory_usage/ (1024 ** 3)} GB,Vocab size: {vocab_size}")
+    print(f"Initial memory usage: {initial_memory_usage} GB,Vocab size: {vocab_size}")
     input_ids = torch.randint(0, vocab_size, (1, 512)).to(device)
     with torch.no_grad():
         model(input_ids)
     # 计算显存占用
-    final_memory_usage = torch.cuda.memory_allocated(device)
-    print(f"Final memory usage: {final_memory_usage} bytes")
+    final_memory_usage = torch.cuda.memory_allocated(device)/ (1024 ** 3)
+    print(f"Final memory usage: {final_memory_usage} GB")
     # 计算差异
     memory_used = final_memory_usage - initial_memory_usage
-    print(f"Memory used by the model: {memory_used} bytes")
+    print(f"Memory used by the model: {memory_used} GB")
 
 
 if __name__ == "__main__":
