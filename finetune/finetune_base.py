@@ -10,4 +10,4 @@ for param in model.parameters():
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 initial_memory_usage = torch.cuda.memory_allocated(device)
-print(f"Initial memory usage: {initial_memory_usage} bytes")
+print(f"Initial memory usage: {initial_memory_usage/ (1024 ** 3)} GB")
