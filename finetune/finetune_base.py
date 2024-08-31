@@ -8,7 +8,7 @@ def print_model_dtype(model):
         break 
 
 # 获取模型占用的 GPU显存（差值为预留给 PyTorch 的显存）
-def print_memory_gb(model):
+def print_model_memory_gb(model):
     memory_footprint_bytes = model.get_memory_footprint()
     memory_footprint_mib = memory_footprint_bytes / (1024 ** 3)  # 转换为 GB
     print(f"Model Memory usage: {memory_footprint_mib:.2f}GB")
@@ -19,15 +19,16 @@ def print_cuda_memory_gb(model,tokenizer):
     initial_memory_usage = torch.cuda.memory_allocated(device)/ (1024 ** 3)
     vocab_size = tokenizer.vocab_size
     print(f"Initial memory usage: {initial_memory_usage} GB,Vocab size: {vocab_size}")
-    input_ids = torch.randint(0, vocab_size, (1, 512)).to(device)
-    with torch.no_grad():
-        model(input_ids)
-    # 计算显存占用
-    final_memory_usage = torch.cuda.memory_allocated(device)/ (1024 ** 3)
-    print(f"Final memory usage: {final_memory_usage} GB")
-    # 计算差异
-    memory_used = final_memory_usage - initial_memory_usage
-    print(f"Memory used by the model: {memory_used} GB")
+    
+    # input_ids = torch.randint(0, vocab_size, (1, 512)).to(device)
+    # with torch.no_grad():
+    #     model(input_ids)
+    # # 计算显存占用
+    # final_memory_usage = torch.cuda.memory_allocated(device)/ (1024 ** 3)
+    # print(f"Final memory usage: {final_memory_usage} GB")
+    # # 计算差异
+    # memory_used = final_memory_usage - initial_memory_usage
+    # print(f"Memory used by the model: {memory_used} GB")
 
 
 if __name__ == "__main__":
@@ -35,7 +36,5 @@ if __name__ == "__main__":
     model = AutoModel.from_pretrained(model_name_or_path,trust_remote_code=True, device_map="cuda").to(0)    
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path,trust_remote_code=True)
     print_model_dtype(model)
-    print_memory_gb(model)
+    print_model_memory_gb(model)
     print_cuda_memory_gb(model,tokenizer)
-    print_memory_gb(model)
-    
