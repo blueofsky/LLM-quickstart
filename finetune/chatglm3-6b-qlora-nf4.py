@@ -18,6 +18,7 @@ from transformers import (
 
 # 定义全局变量和参数
 peft_model_path = "models/chatglm3-6b-nf4" # 训练好的模型存储目录
+peft_data_path="data/adgen"
 model_name_or_path = 'THUDM/chatglm3-6b'   # 模型ID或本地路径
 model_revision='b098244'                   # 模型版本
 train_data_path = 'HasturOfficial/adgen'   # 训练数据路径
@@ -75,8 +76,10 @@ tokenized_dataset = dataset['train'].map(
     lambda example: tokenize_func(example, tokenizer),
     batched=False, 
     remove_columns=dataset['train'].column_names
-)
-tokenized_dataset = tokenized_dataset.shuffle(seed=8).flatten_indices()
+).flatten_indices()
+tokenized_dataset = tokenized_dataset.shuffle(seed=8).select(range(1000))
+# 保存数据集
+# tokenized_dataset.save_to_disk(peft_data_path)
 
 
 
@@ -181,9 +184,9 @@ qlora_model.print_trainable_parameters()
 
 
 ## 模型训练
-train_epochs=1     # 训练轮数
+train_epochs=3     # 训练轮数
 training_args = TrainingArguments(
-    output_dir=f"models/{model_name_or_path}",          # 输出目录
+    output_dir=peft_model_path,          # 输出目录
     per_device_train_batch_size=48,                     # 每个设备的训练批量大小
     gradient_accumulation_steps=4,                     # 梯度累积步数
     # per_device_eval_batch_size=8,                      # 每个设备的评估批量大小
