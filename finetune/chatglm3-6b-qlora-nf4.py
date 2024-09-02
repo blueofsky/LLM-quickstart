@@ -72,12 +72,13 @@ def tokenize_func(example, tokenizer, ignore_label_id=-100):
 
     return {'input_ids': input_ids, 'labels': labels}
 # 
-tokenized_dataset = dataset['train'].map(
+tokenized_dataset = dataset['train'].shuffle(seed=8).select(range(1000))
+print(tokenized_dataset[:5])
+tokenized_dataset = tokenized_dataset.map(
     lambda example: tokenize_func(example, tokenizer),
     batched=False, 
-    remove_columns=dataset['train'].column_names
+    remove_columns=tokenized_dataset.column_names
 ).flatten_indices()
-tokenized_dataset = tokenized_dataset.shuffle(seed=8).select(range(1000))
 # 保存数据集
 # tokenized_dataset.save_to_disk(peft_data_path)
 
