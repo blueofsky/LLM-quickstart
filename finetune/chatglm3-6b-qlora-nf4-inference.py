@@ -3,9 +3,7 @@ from transformers import AutoModel, AutoTokenizer, BitsAndBytesConfig
 from peft import PeftModel, PeftConfig
 
 # 加载微调模型的路径
-peft_model_path = "/root/autodl-tmp/chatglm3-6b-sft-nf4"
-# "/root/workspace/llama-factory/saves/ChatGLM3-6B-Chat/lora/train_2024-08-30-11-40-16" 
-# "models/chatglm3-6b-nf4"
+peft_model_path ="models/chatglm3-6b-nf4"
 # 从预训练好的微调模型中加载配置
 peft_config = PeftConfig.from_pretrained(peft_model_path)
 # 配置量化设置，用于模型的4比特量化
