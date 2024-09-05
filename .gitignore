@@ -169,3 +169,6 @@ deepspeed/output_dir
 RLHF
 zhipu/data
 zhipu/output
+jupyter/datasets
+jupyter/models
+jupyter/saves
